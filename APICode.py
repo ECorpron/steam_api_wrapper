@@ -1,58 +1,47 @@
-import requests
-import random
+import classes.game as game
+import classes.account as account
 
-import modules.classes as c
-import modules.steam_calls as api
+import steam_api.steam_api_controller as api
+import steam_api.owned_game_controller as game_controller
 
-key = "2C37C1FD41653A578C221683DCC06B6F"
+# import credentials.config as config
+
 profile_id = "76561198046373486"
-
-profile = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={key}&steamids={profile_id}"
-achievement_request =\
-    'http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=440'
-friends_list = \
-    f" http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key={key}&steamid={profile_id}&relationship=friend"
-
-owned_games = f" http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/" \
-              f"?key={key}&steamid={profile_id}&format=json&include_appinfo=true&include_played_free_games=true"
-
-#print(friendsList)
-
-#response = requests.get(profile)
-#r = requests.get('https://api.github.com/events')
-#games = requests.get(gameRequest)
-#friends = requests.get(friendsList)
-my_games = requests.get(owned_games)
-
-json_games = my_games.json()
-
-print("Status Code: "+str(my_games.status_code))
-#print("JSON version of response: \n"+str(jsonGames))
-
-#print("Text version of response: \n"+myGames.text)
+my_account = account.Account(profile_id=profile_id)
 
 
-print(len(json_games))
-#print(jsonGames["response"])
-#print(type(jsonGames["response"]))
+# profile = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={steam_api_key}&steamids={
+# profile_id}" achievement_request =\
+# 'http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=440' friends_list
+# = \ f" http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key={steam_api_key}&steamid={
+# profile_id}&relationship=friend"
 
-response_body = json_games["response"]
+# print(friendsList)
 
-#print("response Body: \n"+str(responseBody))
-print("Length of response body: "+str(len(response_body)))
+# response = requests.get(profile)
+# r = requests.get('https://api.github.com/events')
+# games = requests.get(gameRequest)
+# friends = requests.get(friendsList)
 
-game_count = response_body["game_count"]
-game_list = response_body["games"]
-print("Number of games: "+str(game_count))
+my_api = api.SteamAPIController(profile_id)
+my_games = my_api.owned_game_request()
 
-print("List of Games: \n"+str(game_list))
+print(len(my_games))
+
+response_body = my_games["response"]
+
+game_count = game_controller.OwnedGamesManager.get_game_count(my_games)
+game_list = game_controller.OwnedGamesManager.get_games_dict(my_games)
+print("Number of games: " + str(game_count))
+
+print("List of Games: \n" + str(game_list))
 
 rand_game = random.randint(0, game_count)
 
 print(game_list[rand_game])
 print(game_list[rand_game].get("name"))
 
-game = c.Game(game_list[rand_game].get("appid"),
-              game_list[rand_game].get("name"),
-              game_list[rand_game].get("playtime_forever"))
+game = game.Game(game_list[rand_game].get("appid"),
+                 game_list[rand_game].get("name"),
+                 game_list[rand_game].get("playtime_forever"))
 print(game)
