@@ -2,8 +2,8 @@ import classes.game as game
 import classes.account as account
 import credentials.config
 
-import steam_api.steam_api_controller as api
-import steam_api.owned_game_controller as game_controller
+import steam_api_accessor.steam_api_controller as api
+import steam_api_accessor.owned_game_controller as game_controller
 
 profile_id = "76561198046373486"
 steam_api_key = credentials.config.steam_api_key
