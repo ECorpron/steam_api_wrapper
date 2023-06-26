@@ -1,12 +1,13 @@
 import classes.game as game
 import classes.account as account
+import credentials.config
 
 import steam_api.steam_api_controller as api
 import steam_api.owned_game_controller as game_controller
 
 profile_id = "76561198046373486"
+steam_api_key = credentials.config.steam_api_key
 my_account = account.Account(profile_id=profile_id)
-
 
 # profile = f"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={steam_api_key}&steamids={
 # profile_id}" achievement_request =\
@@ -21,10 +22,8 @@ my_account = account.Account(profile_id=profile_id)
 # games = requests.get(gameRequest)
 # friends = requests.get(friendsList)
 
-my_api = api.SteamAPIController(profile_id)
+my_api = api.SteamAPIController(api_key=steam_api_key, profile_id=profile_id)
 my_games_response = my_api.owned_game_request()
-
-# print(my_games)
 
 my_games = my_games_response["response"]
 

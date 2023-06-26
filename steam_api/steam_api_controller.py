@@ -4,8 +4,8 @@ import exceptions.invalid_response_exception
 
 class SteamAPIController:
 
-    def __init__(self, steam_api_key, profile_id):
-        self.api_key = steam_api_key
+    def __init__(self, api_key, profile_id):
+        self.api_key = api_key
         self.profile_id = profile_id
 
     def profile_request(self):
