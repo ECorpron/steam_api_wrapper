@@ -1,5 +1,20 @@
 import random
 
+
+def get_game_count(game_response):
+    return game_response["game_count"]
+
+
+def get_games_dict(game_response):
+    return game_response["games"]
+
+
+def get_random_game(game_list):
+    rand_index = random.randint(0, len(game_list))
+    return game_list[rand_index]
+
+
+'''
 class OwnedGamesManager:
 
     def __init__(self):
@@ -15,4 +30,6 @@ class OwnedGamesManager:
 
     @staticmethod
     def get_random_game(game_list):
-        rand_game = random.randint(0, len(game_list))
+        rand_index = random.randint(0, len(game_list))
+        return game_list[rand_index]
+'''

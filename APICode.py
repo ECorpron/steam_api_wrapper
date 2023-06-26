@@ -4,8 +4,6 @@ import classes.account as account
 import steam_api.steam_api_controller as api
 import steam_api.owned_game_controller as game_controller
 
-# import credentials.config as config
-
 profile_id = "76561198046373486"
 my_account = account.Account(profile_id=profile_id)
 
@@ -24,24 +22,23 @@ my_account = account.Account(profile_id=profile_id)
 # friends = requests.get(friendsList)
 
 my_api = api.SteamAPIController(profile_id)
-my_games = my_api.owned_game_request()
+my_games_response = my_api.owned_game_request()
 
-print(len(my_games))
+# print(my_games)
 
-response_body = my_games["response"]
+my_games = my_games_response["response"]
 
-game_count = game_controller.OwnedGamesManager.get_game_count(my_games)
-game_list = game_controller.OwnedGamesManager.get_games_dict(my_games)
+game_count = game_controller.get_game_count(my_games)
+game_list = game_controller.get_games_dict(my_games)
 print("Number of games: " + str(game_count))
 
 print("List of Games: \n" + str(game_list))
 
-rand_game = random.randint(0, game_count)
+rand_game = game_controller.get_random_game(game_list)
 
-print(game_list[rand_game])
-print(game_list[rand_game].get("name"))
+print(rand_game.get("name"))
 
-game = game.Game(game_list[rand_game].get("appid"),
-                 game_list[rand_game].get("name"),
-                 game_list[rand_game].get("playtime_forever"))
+game = game.Game(rand_game.get("appid"),
+                 rand_game.get("name"),
+                 rand_game.get("playtime_forever"))
 print(game)
