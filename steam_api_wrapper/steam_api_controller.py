@@ -1,5 +1,5 @@
 import requests
-import exceptions.invalid_response_exception
+import steam_api_wrapper.exceptions as exceptions
 
 
 class SteamAPIController:
@@ -18,7 +18,7 @@ class SteamAPIController:
             return profile_response.json()
         else:
             print(profile_response)
-            raise exceptions.invalid_response_exception.InvalidResponseException
+            raise exceptions.InvalidResponseException
 
     def owned_game_request(self):
         owned_games_request = f" http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={self.api_key}" \
@@ -33,5 +33,4 @@ class SteamAPIController:
             return game_response.json()
         else:
             print(game_response)
-            raise exceptions.invalid_response_exception.InvalidResponseException
-
+            raise exceptions.InvalidResponseException
