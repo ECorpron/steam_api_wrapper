@@ -24,7 +24,7 @@ my_account = classes.Account(profile_id=profile_id)
 my_api = steam_api.SteamAPIController(api_key=steam_api_key, profile_id=profile_id)
 my_games_response = my_api.owned_game_request()
 
-my_games = my_games_response["response"]
+my_games = owned_games.unwrap_user_game_response(my_games_response)
 
 game_count = owned_games.get_game_count(my_games)
 game_list = owned_games.get_games_dict(my_games)

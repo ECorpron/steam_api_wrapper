@@ -1,12 +1,16 @@
 import random
 
 
-def get_game_count(game_response):
-    return game_response["game_count"]
-
-
-def get_games_dict(game_response):
+def unwrap_user_game_response(game_response):
     return game_response["response"]
+
+
+def get_game_count(game_data):
+    return game_data["game_count"]
+
+
+def get_games_dict(game_data):
+    return game_data["games"]
 
 
 def get_random_game(game_list):
