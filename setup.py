@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='steam_api_wrapper',
-    version='0.1.3',
+    version='0.1.3.1',
     description='A module to access the public Steam API with some helpful methods to manipulate the returned request',
     author='Eli Corpron',
     packages=['steam_api_wrapper'],
