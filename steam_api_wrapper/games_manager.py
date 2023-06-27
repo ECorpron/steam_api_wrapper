@@ -6,7 +6,7 @@ def get_game_count(game_response):
 
 
 def get_games_dict(game_response):
-    return game_response["games"]
+    return game_response["response"]
 
 
 def get_random_game(game_list):
