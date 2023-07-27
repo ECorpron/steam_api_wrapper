@@ -8,19 +8,37 @@ class Account:
 
 
 class Game:
-    def __init__(self, appid, name, total_playtime):
+    def __init__(self, appid, name="", total_playtime=0, game_stats=None):
         self.appid = appid
         self.name = name
         self.total_playtime = total_playtime
+        self.game_stats = game_stats
 
     def __str__(self):
         output = "appid: {}\n".format(self.appid)
         output = output + "name: {}\n".format(self.name)
-        output = output + "Total Playtime: {}\n".format(self.total_playtime)
+        output = output + "Total Playtime: {}".format(self.total_playtime)
+        output = output + "Game Stats: {}".format(self.game_stats)
+        return output
+
+    def __repr__(self):
+        output = "{"
+        output = output + "appid: {}, ".format(self.appid)
+        output = output + "name: {}, ".format(self.name)
+        output = output + "Total Playtime: {}, ".format(self.total_playtime)
+        output = output + "Game Stats: {}".format(self.game_stats)
+        output = output + "}"
         return output
 
 
 class GameCollection:
+    def __init__(self, game_count=0, game_list=None):
+        self.game_count = game_count
+        self.game_list = game_list
 
-    def __init__(self, game_count=0, game_dict=None):
-        pass
+    def __repr__(self):
+        output = "{"
+        output = output + "game_count: {}, ".format(self.game_count)
+        output = output + "game_list: {}, ".format(self.game_list)
+        output = output + "}"
+        return output

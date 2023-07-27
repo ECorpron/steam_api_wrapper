@@ -1,5 +1,8 @@
-import steam_api_wrapper.steam_api_controller as steam_api
-import steam_api_wrapper.games_manager as owned_games
+import json
+
+import steam_api_wrapper.iplayerservice_controller as player_service
+import steam_api_wrapper.isteamuserstats_controller as steam_user_service
+import steam_api_wrapper.games_manager as games_manager
 
 import steam_api_wrapper.classes as classes
 import credentials.config
@@ -21,22 +24,35 @@ my_account = classes.Account(profile_id=profile_id)
 # games = requests.get(gameRequest)
 # friends = requests.get(friendsList)
 
-my_api = steam_api.SteamAPIController(api_key=steam_api_key, profile_id=profile_id)
-my_games_response = my_api.owned_game_request()
+# input_json = {'steamid': profile_id, 'include_played_free_games': False}
+# input_json = json.dumps(input_json)
 
-my_games = owned_games.unwrap_user_game_response(my_games_response)
+# print(input_json)
 
-game_count = owned_games.get_game_count(my_games)
-game_list = owned_games.get_games_dict(my_games)
-print("Number of games: " + str(game_count))
+test_dict = {'appid': 3920, 'playtime_forever': 0, 'playtime_windows_forever': 0, 'playtime_mac_forever': 0, 'playtime_linux_forever': 0, 'rtime_last_played': 0, 'playtime_disconnected': 0}
+print(test_dict.get("appid"))
 
-print("List of Games: \n" + str(game_list))
 
-rand_game = owned_games.get_random_game(game_list)
+player_service.IPlayerServiceController.api_key = steam_api_key
 
-print(rand_game.get("name"))
+my_games_response = player_service.IPlayerServiceController.get_owned_games_request(profile_id, False)
 
-game = classes.Game(rand_game.get("appid"),
-                    rand_game.get("name"),
-                    rand_game.get("playtime_forever"))
-print(game)
+my_games = games_manager.unwrap_user_game_response(my_games_response)
+print(my_games)
+
+print("Number of games: ", my_games.game_count)
+
+print("List of Games: \n", my_games.game_list)
+
+rand_game = games_manager.get_random_game(my_games.game_list)
+print("Random Game: \n")
+print(rand_game)
+
+
+steam_user_service.ISteamUserStatsController.api_key = steam_api_key
+
+random_game_info = steam_user_service.ISteamUserStatsController.get_schema_for_game(rand_game.appid)
+
+random_game = games_manager.add_schema_info_to_game(rand_game, random_game_info)
+
+print(random_game_info)
