@@ -1,14 +1,15 @@
 class Account:
-    def __init__(self, profile_id, game_count=0, game_dict=None):
-        if game_dict is None:
-            game_dict = {}
+    def __init__(self, profile_id, game_count=0, game_list=None):
+        if game_list is None:
+            game_list = {}
         self.profile_id = profile_id
         self.game_count = game_count
-        self.game_dict = game_dict
+        self.game_list = game_list
 
 
 class Game:
-    def __init__(self, appid, name="", total_playtime=0, game_stats=None):
+    def __init__(self, appid, name="", total_playtime=0, game_stats=None, game_achievements=None):
+        self.game_achievements = game_achievements
         self.appid = appid
         self.name = name
         self.total_playtime = total_playtime
@@ -17,8 +18,9 @@ class Game:
     def __str__(self):
         output = "appid: {}\n".format(self.appid)
         output = output + "name: {}\n".format(self.name)
-        output = output + "Total Playtime: {}".format(self.total_playtime)
-        output = output + "Game Stats: {}".format(self.game_stats)
+        output = output + "Total Playtime: {}\n".format(self.total_playtime)
+        output = output + "Game Stats: {}\n".format(self.game_stats)
+        output = output + "Game Achievements: {}".format(self.game_achievements)
         return output
 
     def __repr__(self):
@@ -27,6 +29,7 @@ class Game:
         output = output + "name: {}, ".format(self.name)
         output = output + "Total Playtime: {}, ".format(self.total_playtime)
         output = output + "Game Stats: {}".format(self.game_stats)
+        output = output + "Game Achievements: {}".format(self.game_achievements)
         output = output + "}"
         return output
 

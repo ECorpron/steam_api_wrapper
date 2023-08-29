@@ -1,7 +1,7 @@
 import json
 
 import requests
-import steam_api_wrapper.exceptions as exceptions
+from steam_api_wrapper.exceptions import InvalidResponseException
 
 
 class IPlayerServiceController:
@@ -20,7 +20,7 @@ class IPlayerServiceController:
             return profile_response.json()
         else:
             print(profile_response)
-            raise exceptions.InvalidResponseException
+            raise InvalidResponseException
 
     @staticmethod
     def get_owned_games_request(profile_id, include_free_games):
@@ -32,15 +32,13 @@ class IPlayerServiceController:
                               f"&input_json={input_json}"
 
         game_response = requests.get(owned_games_request)
-
         status_code = game_response.status_code
-        print(status_code)
 
         if status_code >= 200 or status_code < 300:
             return game_response.json()
         else:
             print(game_response)
-            raise exceptions.InvalidResponseException
+            raise InvalidResponseException
 
     @staticmethod
     def get_recent_played_games_request(profile_id):
@@ -57,4 +55,4 @@ class IPlayerServiceController:
             return recent_games_response.json()
         else:
             print(recent_games_response)
-            raise exceptions.InvalidResponseException
+            raise InvalidResponseException

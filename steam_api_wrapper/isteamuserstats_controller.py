@@ -12,7 +12,7 @@ class ISteamUserStatsController:
         achievement_response = requests.get(achievement_request)
         status_code = achievement_response.status_code
 
-        if status_code == 200:
+        if status_code >= 200 or status_code < 300:
             return achievement_response.json()
         else:
             print(achievement_response)
@@ -25,7 +25,7 @@ class ISteamUserStatsController:
         current_players_response = requests.get(current_players_request)
         status_code = current_players_response.status_code
 
-        if status_code == 200:
+        if status_code >= 200 or status_code < 300:
             return current_players_response.json()
         else:
             print(current_players_response)
@@ -38,7 +38,7 @@ class ISteamUserStatsController:
         player_achievements_response = requests.get(player_achievements_request)
         status_code = player_achievements_response.status_code
 
-        if status_code == 200:
+        if status_code >= 200 or status_code < 300:
             return player_achievements_response.json()
         else:
             print(player_achievements_response)
@@ -51,7 +51,7 @@ class ISteamUserStatsController:
         game_schema_response = requests.get(game_schema_request)
         status_code = game_schema_response.status_code
 
-        if status_code == 200:
+        if status_code >= 200 or status_code < 300:
             return game_schema_response.json()
         else:
             print(game_schema_response)
@@ -66,7 +66,7 @@ class ISteamUserStatsController:
         user_stats_for_game_response = requests.get(user_stats_for_game_request)
         status_code = user_stats_for_game_response.status_code
 
-        if status_code == 200:
+        if status_code >= 200 or status_code < 300:
             return user_stats_for_game_response.json()
         else:
             print(user_stats_for_game_response)
